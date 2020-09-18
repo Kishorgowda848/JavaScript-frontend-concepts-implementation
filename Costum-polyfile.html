@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let name={
+            firstName:"pavan",
+            lastName:"Ks"
+        }/*** Object **/
+
+        let printName=function(state,city){
+            console.log(this.firstName+'  '+this.lastName+" "+state," "+city);
+        }/** Methods will going barrow from another methods***/
+
+        // printName= printname.bind(name);
+        // printName();
+
+        Function.prototype.mybind=function(...args){
+            let obj=this;
+            let parms=args.slice(1);/*** */
+            return function(...args2){
+             obj.apply(args[0],[...parms,...args2]);
+            }
+        }
+
+        let print=printName.mybind(name,"Karnataka")
+         print("Holenarasipura");
+    </script>
+</body>
+</html>

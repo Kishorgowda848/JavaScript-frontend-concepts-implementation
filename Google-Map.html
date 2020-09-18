@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #map_canvas{
+    width: 100%;
+    height: 300px;
+}
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtmOMV2QVT-8a4AKD_lUHAjWWwloeXI_k"></script> -->
+    
+    <div id="map_canvas"></div>
+    
+    <div >click the map to animate</div>
+    <button id="button">click here</button>
+    <script type="text/javascript">
+        
+        var map = undefined;
+        var marker = undefined;
+        var position = [43, -89];
+        
+        function initialize() {
+                
+            var latlng = new google.maps.LatLng(position[0], position[1]);
+            var myOptions = {
+                zoom: 8,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: "Your current location!"
+            });
+        
+            google.maps.event.addListener(map, 'click', function(me) {
+                var result = [me.latLng.lat(), me.latLng.lng()];
+                transition(result);
+            });
+        }
+        
+        var numDeltas = 100;
+        var delay = 10; //milliseconds
+        var i = 0;
+        var deltaLat;
+        var deltaLng;
+        function transition(result){
+            i = 0;
+            deltaLat = (result[0] - position[0])/numDeltas;
+            deltaLng = (result[1] - position[1])/numDeltas;
+            moveMarker();
+        }
+        
+        function moveMarker(){
+            position[0] += deltaLat;
+            position[1] += deltaLng;
+            var latlng = new google.maps.LatLng(position[0], position[1]);
+            marker.setPosition(latlng);
+            if(i!=numDeltas){
+                i++;
+                setTimeout(moveMarker, delay);
+            }
+        }
+        console.log( document.getElementById('button'))
+
+        // initialize();
+        document.getElementById('button').addEventListener('click',()=>{
+            initialize(); 
+        });
+    </script>
+
+</body>
+</html>
+
+

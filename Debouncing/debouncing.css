@@ -1,0 +1,10 @@
+button{
+    margin-left: 500px;
+    width: 200px;
+    height: 25px;
+    border-radius: 10px;
+    color: blue;
+    background-color: orange;
+    margin-top: 150px;
+    outline:none
+}/** it is all about Styling the button**/

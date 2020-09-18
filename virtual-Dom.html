@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hey this not</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** virtual DOM**/
+	const t0=performance.now();
+    const fragment=document.createDocumentFragment();
+	for(let i=0;i<1000;i++){
+       fragment.appendChild(document.createElement('p').appendChild(document.createTextNode("HAi kishore")));
+	}
+	document.body.appendChild(fragment);
+    const t1=performance.now();
+    console.log(t1-t0, "Virtual DOM");
+
+/*** Our way **/
+    const t2=performance.now();
+ 	for(let i=0;i<10000;i++){
+      var x= document.createElement('p').appendChild(document.createTextNode("Hey kishore"));
+      document.body.appendChild(x);
+	}
+    const t3=performance.now();
+    console.log(t3-t2, "time taken");
+
+</script>
+</body>
+</html>
